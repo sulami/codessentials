@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from posts.models import TextPost, VideoPost, BookPost
+from posts.models import Post
 
 """
 Categories:
@@ -14,24 +14,18 @@ n - new
 """
 
 def index(request):
-    return redirect('get', cat='t', language=None, mode='t')
+    pass
+    # return redirect('posts.views.get', cat='t', lang=None, mode='t')
 
-def get(request, cat, language, mode):
-    if cat not in "tvb" or mode not in "tn":
+def get(request, lang, mode, cat):
+    if cat not in "tvb" or mode not in "tn" or not lang:
         return redirect('index')
-    if cat == "t":
-        posts = TextPost.objects.all()
-    if cat == "v":
-        posts = VideoPost.objects.all()
-    if cat == "b":
-        posts = BookPost.objects.all()
-    if language:
-        posts = posts.get(lang=language)
+    posts = Post.objects.filter(cat=cat, lang__name=lang)
     if mode == "t":
         posts = posts.order_by('votes')
     if mode == "n":
         posts = posts.order_by('-pub_date')
-    context = {'posts': posts, 'cat': cat, 'lang': language, 'mode': mode}
+    context = {'posts': posts, 'cat': cat, 'lang': lang, 'mode': mode}
     return render(request, 'list.html', context)
 
 def post(request):
