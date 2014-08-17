@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from posts.models import *
+
+admin.site.register(Language)
+admin.site.register(TextPost)
+admin.site.register(VideoPost)
+admin.site.register(BookPost)
+
