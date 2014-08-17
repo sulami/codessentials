@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from posts import TextPost, VideoPost, BookPost
+from posts.models import TextPost, VideoPost, BookPost
 
 """
 Categories:
