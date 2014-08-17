@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from posts.models import Post
+from posts.models import Language, Post
 
 """
 Categories:
@@ -14,8 +14,8 @@ n - new
 """
 
 def index(request):
-    pass
-    # return redirect('posts.views.get', cat='t', lang=None, mode='t')
+    langs = Language.objects.all().order_by('name')
+    return render(request, 'index.html', {'langs': langs})
 
 def get(request, lang, mode, cat):
     if cat not in "tvb" or mode not in "tn" or not lang:

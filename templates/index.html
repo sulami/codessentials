@@ -1,0 +1,15 @@
+{% extends 'skeleton.html' %}
+
+{% block 'menu' %}
+&gt;
+<li class="menu"><a href="{% url 'posts:submit' %}">submit</a></li>
+{% endblock %}
+
+{% block 'content' %}
+{% for lang in langs %}
+<li>
+<a href="{{ post.link }}" title="{{ lang }}">{{ lang }}</a>
+</li>
+{% endfor %}
+{% endblock %}
+
