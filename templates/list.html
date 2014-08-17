@@ -1,6 +1,37 @@
 {% extends 'skeleton.html' %}
 
+{% block 'title' %}
+    {% if mode == 't' %}Best
+        {% elif mode == 'n' %}Newest
+        {% endif %}
+    {{ lang }}
+    {% if cat == 't' %}text
+        {% elif cat == 'v' %}video
+        {% elif cat == 'b'%}book
+        {% endif %}
+    links -
+{% endblock %}
+
+{% block 'menu' %}
+&gt;
+<li class="menu"><a href="{% url 'posts:get' lang 'n' cat %}">new</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang 't' cat %}">top</a></li>
+&gt;
+<li class="menu"><a href="{% url 'posts:get' lang mode 't' %}">text</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang mode 'v' %}">video</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang mode 'b' %}">book</a></li>
+&gt;
+<li class="menu"><a href="{% url 'posts:submit' %}">submit</a></li>
+{% endblock %}
+
 {% block 'content' %}
-Bla
+{% for post in posts %}
+<li>
+<a href="{{ post.link }}" title="{{ post.link }}">{{ post }}</a><br />
+{{ post.votes }} Votes |
+{{ post.pub_date|date:"Y-d-m" }} |
+{{ post.slug }}
+</li>
+{% endfor %}
 {% endblock %}
 

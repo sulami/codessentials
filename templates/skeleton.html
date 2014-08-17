@@ -1,3 +1,81 @@
-{% block 'content' %}
-{% endblock %}
+{% load staticfiles %}
+<html>
+<head>
+    <title>{% block 'title' %}{% endblock %}Codessentials</title>
+    <!-- <link href="{% static 'style.css' %}" rel="stylesheet/css" type="text/css"/> -->
+    <style>
+        body {
+            background-color: #555;
+            font-family: sans;
+            margin: 0;
+            padding: 0;
+        }
+        div#container {
+            background-color: #3d3d3d;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin: auto;
+            padding-bottom: 10px;
+            width: 800px;
+        }
+        div#top {
+            background-color: #3ec69c;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            color: #3d3d3d;
+            margin-bottom: 10px;
+            padding: 3px;
+            padding-left: 15px;
+        }
+        a#logo {
+            color: #3d3d3d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        a#logo:hover {
+            text-decoration: underline;
+        }
+        li.menu {
+            display: inline;
+            margin: 0;
+            text-align: right;
+        }
+        li.menu a, li.menu a:visited {
+            color: #3d3d3d;
+        }
+        li.menu a:hover {
+            color: #3d3d3d;
+        }
+        li {
+            color: #666;
+            font-size: 12px;
+            list-style: none;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+        li a {
+            color: #3ec69c;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        li a:hover {
+            text-decoration: underline;
+        }
+        li a:visited {
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <div id="top">
+        <a id="logo" href="/">Codessentials</a>
+        {% block 'menu' %}
+        {% endblock %}
+    </div>
+    {% block 'content' %}
+    {% endblock %}
+    </div>
+</body>
+</html>
 
