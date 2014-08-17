@@ -9,7 +9,7 @@ class Post(models.Model):
     link = models.URLField()
     pub_date = models.DateTimeField(auto_now_add=True)
     lang = models.ForeignKey('Language')
-    votes = models.IntegerField()
+    votes = models.IntegerField(default=0)
 
 class TextPost(Post):
     """Link->text post"""
