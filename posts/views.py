@@ -28,7 +28,7 @@ def get(request, lang, mode, cat):
     context = {'posts': posts, 'cat': cat, 'lang': lang, 'mode': mode}
     return render(request, 'list.html', context)
 
-def post(request):
+def submit(request):
     # TODO add posting functionalitu
     pass
 
