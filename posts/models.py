@@ -8,7 +8,8 @@ class Post:
     name = models.CharField(max_length=140)
     link = models.URLField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    language = models.ForeignKey(Language)
+    lang = models.ForeignKey(Language)
+    votes = models.IntegerField()
 
 class TextPost(Post):
     """Link->text post"""
