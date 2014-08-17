@@ -14,7 +14,7 @@ n - new
 """
 
 def index(request):
-    return redirect('get', 't', None, 't')
+    return redirect('get', cat='t', language=None, mode='t')
 
 def get(request, cat, language, mode):
     if cat not in "tvb" or mode not in "tn":
@@ -32,7 +32,7 @@ def get(request, cat, language, mode):
     if mode == "n":
         posts = posts.order_by('-pub_date')
     context = {'posts': posts, 'cat': cat, 'lang': language, 'mode': mode}
-    return render('sometemplate.html', context)
+    return render(request, 'list.html', context)
 
 def post(request):
     # TODO add posting functionalitu
