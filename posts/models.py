@@ -10,7 +10,7 @@ class Post:
     pub_date = models.DateTimeField(auto_now_add=True)
     language = models.ForeignKey(Language)
 
-class LinkPost(Post):
+class TextPost(Post):
     """Link->text post"""
     pass
 
