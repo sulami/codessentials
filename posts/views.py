@@ -17,10 +17,12 @@ def index(request):
     langs = Language.objects.all().order_by('name')
     return render(request, 'index.html', {'langs': langs})
 
-def get(request, lang, mode, cat):
+def get(request, lang, cat, mode):
     if cat not in "tvb" or mode not in "tn" or not lang:
-        return redirect('index')
-    posts = Post.objects.filter(cat=cat, lang__name=lang)
+        return redirect('posts:index')
+    posts = Post.objects.filter(lang__name=lang)
+    if cat:
+        posts = posts.filter(cat=cat)
     if mode == "t":
         posts = posts.order_by('votes')
     if mode == "n":

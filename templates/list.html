@@ -14,12 +14,12 @@
 
 {% block 'menu' %}
 &gt;
-<li class="menu"><a href="{% url 'posts:get' lang 'n' cat %}">new</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang 't' cat %}">top</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang cat 't' %}">top</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang cat 'n' %}">new</a></li>
 &gt;
-<li class="menu"><a href="{% url 'posts:get' lang mode 't' %}">text</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang mode 'v' %}">video</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang mode 'b' %}">book</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang 't' mode %}">text</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang 'v' mode %}">video</a></li>
+<li class="menu"><a href="{% url 'posts:get' lang 'b' mode %}">book</a></li>
 &gt;
 <li class="menu"><a href="{% url 'posts:submit' %}">submit</a></li>
 {% endblock %}
