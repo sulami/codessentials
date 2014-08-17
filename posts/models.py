@@ -1,14 +1,14 @@
 from django.db import models
 
-class Language:
+class Language(models.Model):
     name = models.CharField(max_length=30)
 
-class Post:
+class Post(models.Model):
     """Base post class to inherit from"""
     name = models.CharField(max_length=140)
     link = models.URLField()
     pub_date = models.DateTimeField(auto_now_add=True)
-    lang = models.ForeignKey(Language)
+    lang = models.ForeignKey('Language')
     votes = models.IntegerField()
 
 class TextPost(Post):
