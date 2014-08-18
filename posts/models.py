@@ -5,7 +5,7 @@ from urlparse import urlparse
 class Language(models.Model):
     name = models.CharField(max_length=30)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
 CAT_CHOICES = (
@@ -22,7 +22,7 @@ class Post(models.Model):
     votes = models.IntegerField(default=0)
     cat = models.CharField(max_length=1, choices=CAT_CHOICES)
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     def slug(self):
