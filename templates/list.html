@@ -14,12 +14,17 @@
 
 {% block 'menu' %}
 &gt;
-<li class="menu"><a href="{% url 'posts:get' lang cat 't' %}">top</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang cat 'n' %}">new</a></li>
+<li class="menu"><a {% if mode == 't' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang cat 't' %}">top</a></li>
+<li class="menu"><a {% if mode == 'n' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang cat 'n' %}">new</a></li>
 &gt;
-<li class="menu"><a href="{% url 'posts:get' lang 't' mode %}">text</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang 'v' mode %}">video</a></li>
-<li class="menu"><a href="{% url 'posts:get' lang 'b' mode %}">book</a></li>
+<li class="menu"><a {% if cat == 't' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang 't' mode %}">text</a></li>
+<li class="menu"><a {% if cat == 'v' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang 'v' mode %}">video</a></li>
+<li class="menu"><a {% if cat == 'b' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang 'b' mode %}">book</a></li>
 &gt;
 <li class="menu"><a href="{% url 'posts:submit' %}">submit</a></li>
 {% endblock %}
