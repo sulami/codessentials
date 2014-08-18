@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from posts.models import Language, Post
 from posts.forms import PostForm
@@ -28,7 +29,15 @@ def get(request, lang, cat, mode):
         posts = posts.order_by('votes')
     if mode == "n":
         posts = posts.order_by('-pub_date')
-    context = {'posts': posts, 'cat': cat, 'lang': lang, 'mode': mode}
+    page = request.GET.get('p')
+    paginator = Paginator(posts, 25)
+    try:
+        postlist = paginator.page(page)
+    except PageNotAnInteger:
+        postlist = paginator.page(1)
+    except EmptyPage:
+        postlist = paginator.page(paginator.num_pages)
+    context = {'posts': postlist, 'cat': cat, 'lang': lang, 'mode': mode}
     return render(request, 'list.html', context)
 
 def submit(request):
