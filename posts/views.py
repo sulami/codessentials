@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
 from posts.models import Language, Post
 from posts.forms import PostForm
@@ -26,7 +27,7 @@ def get(request, lang, cat, mode):
     if cat:
         posts = posts.filter(cat=cat)
     if mode == "t":
-        posts = posts.order_by('votes')
+        posts = posts.order_by('-votes')
     if mode == "n":
         posts = posts.order_by('-pub_date')
     page = request.GET.get('p')
@@ -37,8 +38,22 @@ def get(request, lang, cat, mode):
         postlist = paginator.page(1)
     except EmptyPage:
         postlist = paginator.page(paginator.num_pages)
-    context = {'posts': postlist, 'cat': cat, 'lang': lang, 'mode': mode}
+    voted = []
+    for post in postlist:
+        if str(post.pk) in request.COOKIES:
+            voted.append(post.pk)
+    context = {'posts': postlist, 'voted': voted, 'cat': cat, 'lang': lang,
+               'mode': mode}
     return render(request, 'list.html', context)
+
+def upvote(request, id):
+    response = HttpResponse()
+    if request.is_ajax() and id not in request.COOKIES:
+        response.set_cookie(key=id, value=1)
+        post = get_object_or_404(Post, pk=id)
+        post.votes += 1
+        post.save()
+    return response
 
 def submit(request):
     if request.method == 'POST':
@@ -46,7 +61,6 @@ def submit(request):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             p = form.save()
-            # messages.success(request, project_started)
             return redirect('posts:index', project.pk)
     else:
         form = PostForm()

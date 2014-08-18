@@ -75,6 +75,9 @@
         li a:visited {
             color: #999;
         }
+        a.vote:hover {
+            text-decoration: none;
+        }
         div#empty {
             color: #999;
             text-align: center;
@@ -94,6 +97,8 @@
             text-decoration: none;
         }
     </style>
+    {% block 'head' %}
+    {% endblock %}
 </head>
 <body>
     <div id="container">

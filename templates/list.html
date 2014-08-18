@@ -12,6 +12,10 @@
     links -
 {% endblock %}
 
+{% block 'head' %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% endblock %}
+
 {% block 'menu' %}
 &gt;
 <li class="menu"><a {% if mode == 't' %}class="hilight" {% endif %}
@@ -32,10 +36,15 @@ href="{% url 'posts:get' lang 'b' mode %}">book</a></li>
 {% block 'content' %}
 {% for post in posts %}
 <li>
+<div>
+{% if post.pk not in voted %}
+    <a class="vote" href="{% url 'posts:upvote' post.pk %}">+</a>
+{% endif %}
 <a href="{{ post.link }}" title="{{ post.link }}">{{ post }}</a><br />
-{{ post.votes }} Votes |
+<span>{{ post.votes }}</span> Votes |
 {{ post.pub_date|date:"Y-d-m" }} |
 {{ post.slug }}
+</div>
 </li>
 {% empty %}
 <div id="empty">
@@ -53,5 +62,16 @@ There seems to be nothing here. Why don't you <a href="{% url 'posts:submit' %}"
         <a href="?p={{ posts.next_page_number }}">&gt;</a>
     {% endif %}
 </div>
+<script type="text/javascript">
+$("a.vote").click(function(){
+    var curr = $(this);
+    $.get($(this).attr('href'), function(data){
+        var ctr = $(curr).parent().children("span");
+        ctr.text(ctr.text()*1+1);
+        curr.remove();
+    });
+    return false;
+});
+</script>
 {% endblock %}
 
