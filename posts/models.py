@@ -8,13 +8,19 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
+CAT_CHOICES = (
+    ("t", "Text"),
+    ("v", "Video"),
+    ("b", "Book"),
+)
+
 class Post(models.Model):
     name = models.CharField(max_length=140)
     link = models.URLField(unique=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     lang = models.ForeignKey('Language')
     votes = models.IntegerField(default=0)
-    cat = models.CharField(max_length=1)
+    cat = models.CharField(max_length=1, choices=CAT_CHOICES)
 
     def __str__(self):
         return self.name

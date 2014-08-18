@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 from posts.models import Language, Post
+from posts.forms import PostForm
 
 """
 Categories:
@@ -31,6 +32,15 @@ def get(request, lang, cat, mode):
     return render(request, 'list.html', context)
 
 def submit(request):
-    # TODO add posting functionalitu
-    pass
+    if request.method == 'POST':
+        post = Post()
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            p = form.save()
+            # messages.success(request, project_started)
+            return redirect('posts:index', project.pk)
+    else:
+        form = PostForm()
+    return render(request, 'submit.html', {'form': form})
+
 
