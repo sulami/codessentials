@@ -61,7 +61,7 @@ def submit(request):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             p = form.save()
-            return redirect('posts:index', project.pk)
+            return redirect('posts:index')
     else:
         form = PostForm()
     return render(request, 'submit.html', {'form': form})

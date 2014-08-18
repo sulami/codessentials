@@ -42,7 +42,7 @@ href="{% url 'posts:get' lang 'b' mode %}">book</a></li>
 {% endif %}
 <a href="{{ post.link }}" title="{{ post.link }}">{{ post }}</a><br />
 <span>{{ post.votes }}</span> Votes |
-{{ post.pub_date|date:"Y-d-m" }} |
+{{ post.pub_date|date:"Y-m-d" }} |
 {{ post.slug }}
 </div>
 </li>
