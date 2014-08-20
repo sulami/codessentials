@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.utils import timezone
 
 from posts.models import Language, Post
 from posts.forms import PostForm
 
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 """
 Categories:
@@ -36,13 +37,13 @@ def get(request, lang, cat, mode):
     if mode == "n":
         posts = posts.order_by('-pub_date')
     if mode == "d":
-        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=1)
+        posts = posts.filter(pub_date__gte=timezone.now() - timedelta(days=1)
                             ).order_by('-votes')
     if mode == "w":
-        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=7)
+        posts = posts.filter(pub_date__gte=timezone.now() - timedelta(days=7)
                             ).order_by('-votes')
     if mode == "m":
-        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=30)
+        posts = posts.filter(pub_date__gte=timezone.now() - timedelta(days=30)
                             ).order_by('-votes')
     page = request.GET.get('p')
     paginator = Paginator(posts, 25)
