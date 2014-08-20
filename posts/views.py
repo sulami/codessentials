@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from posts.models import Language, Post
 from posts.forms import PostForm
 
+from datetime import datetime, timedelta
+
 """
 Categories:
 t - text
@@ -14,6 +16,9 @@ b - book
 Modes:
 t - top
 n - new
+d - day
+w - week
+m - month
 """
 
 def index(request):
@@ -21,7 +26,7 @@ def index(request):
     return render(request, 'index.html', {'langs': langs})
 
 def get(request, lang, cat, mode):
-    if cat not in "tvb" or mode not in "tn" or not lang:
+    if cat not in "tvb" or mode not in "tndwm" or not lang:
         return redirect('posts:index')
     posts = Post.objects.filter(lang__name=lang)
     if cat:
@@ -30,6 +35,15 @@ def get(request, lang, cat, mode):
         posts = posts.order_by('-votes')
     if mode == "n":
         posts = posts.order_by('-pub_date')
+    if mode == "d":
+        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=1)
+                            ).order_by('-votes')
+    if mode == "w":
+        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=7)
+                            ).order_by('-votes')
+    if mode == "m":
+        posts = posts.filter(pub_date__gte=datetime.now() - timedelta(days=30)
+                            ).order_by('-votes')
     page = request.GET.get('p')
     paginator = Paginator(posts, 25)
     try:

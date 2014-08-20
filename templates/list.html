@@ -22,6 +22,12 @@
 href="{% url 'posts:get' lang cat 't' %}">top</a></li>
 <li class="menu"><a {% if mode == 'n' %}class="hilight" {% endif %}
 href="{% url 'posts:get' lang cat 'n' %}">new</a></li>
+<li class="menu"><a {% if mode == 'd' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang cat 'd' %}">day</a></li>
+<li class="menu"><a {% if mode == 'w' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang cat 'w' %}">week</a></li>
+<li class="menu"><a {% if mode == 'm' %}class="hilight" {% endif %}
+href="{% url 'posts:get' lang cat 'm' %}">month</a></li>
 &gt;
 <li class="menu"><a {% if cat == 't' %}class="hilight" {% endif %}
 href="{% url 'posts:get' lang 't' mode %}">text</a></li>
