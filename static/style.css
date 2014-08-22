@@ -52,6 +52,17 @@ li.menu a.hilight {
     font-style: italic;
     text-decoration: underline;
 }
+div.messages {
+    font-weight: bold;
+    margin: auto;
+    text-align: center;
+}
+div.msg_40 {
+    color: #cc0000;
+}
+div.msg_25 {
+    color: #00cc00;
+}
 div#ad_banner {
     margin: auto;
     margin-bottom: 10px;

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.utils import timezone
+from django.contrib import messages
 
 from posts.models import Language, Post
 from posts.forms import PostForm
@@ -76,6 +77,7 @@ def submit(request):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             p = form.save()
+            messages.success(request, "Submission successful!")
             return redirect('posts:index')
     else:
         form = PostForm()

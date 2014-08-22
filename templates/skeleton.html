@@ -13,6 +13,13 @@
         {% block 'menu' %}
         {% endblock %}
     </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="messages msg_{{ message.level }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <div id="ad_banner">
     <!-- Adsense -->
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
