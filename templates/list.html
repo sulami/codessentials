@@ -4,12 +4,12 @@
     {% if mode == 't' %}Best
         {% elif mode == 'n' %}Newest
         {% endif %}
-    {{ lang }}
-    {% if cat == 't' %}text
-        {% elif cat == 'v' %}video
-        {% elif cat == 'b'%}book
+    {{ lang|capfirst }}
+    {% if cat == 't' %}Text
+        {% elif cat == 'v' %}Video
+        {% elif cat == 'b'%}Book
         {% endif %}
-    links -
+    Links -
 {% endblock %}
 
 {% block 'head' %}

@@ -8,7 +8,7 @@
 {% block 'content' %}
 {% for lang in langs %}
 <li>
-<a href="{% url 'posts:get' lang 't' 't'%}" title="{{ lang }}">{{ lang }}</a>
+<a href="{% url 'posts:get' lang 't' 't'%}" title="{{ lang|capfirst }}">{{ lang|capfirst }}</a>
 </li>
 {% endfor %}
 {% endblock %}
